@@ -9,10 +9,6 @@ include 'classe.curl.php'; //Curl class by Ali Saleh.
 
 class youtubeCaption
 {
-    /**
-     * Function to get available languages in Youtube's video
-     * @param $videoId
-     */
 
     private $urltt = "https://www.youtube.com/api/timedtext?";
     private $urlvid = "https://www.youtube.com/watch?v=";
@@ -29,6 +25,10 @@ class youtubeCaption
         return $curl->exec()?$curl->responseText:false;
     }
 
+    /**
+     * Function to get available languages in Youtube's video
+     * @return ArrayObject
+     */
     public function getAvailableLangs(){
         if(!$listcc = $this->_get("type=list&v=".$this->videoId)) die ("Failed to load TTS list");
 
@@ -44,6 +44,12 @@ class youtubeCaption
         return $cc;
     }
 
+
+    /**
+     * Function to get caption and parse text
+     * @param $lang
+     * @return string
+     */
     public function getCaptionText($lang){
         if(!$capXml = $this->_get("v=".$this->videoId."&lang=".$lang)) die ("Failed to load caption");
 
